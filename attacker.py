@@ -3,6 +3,8 @@ import pyautogui
 import random
 import time
 
+import constants
+
 
 class Detector:  # reminder to turn on every snap setting in the in-game Graphics Option
     def __init__(self): 
@@ -22,11 +24,10 @@ class Detector:  # reminder to turn on every snap setting in the in-game Graphic
 
 class Attacker:
     def __init__(self, teleporter):
-        self.skill_key = 'f3'
+        self.skill_key = constants.skill_key
         self.skill_delay = 0.005
-        self.view_refresh_px = (83, 29)
-        self.view_center_px = (716, 382)
-        self.window_size = (1280, 720)
+        self.view_refresh_px = constants.view_refresh_px
+        self.view_center_px = constants.view_center_px
         self.cell_size = (12, 12)  # px/cell length
         self.vision_range = 12
         self.snap_range = 3

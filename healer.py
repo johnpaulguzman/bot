@@ -1,15 +1,18 @@
 import pyautogui
 import time
 
+import constants
+
+
 class Healer:
     def __init__(self, teleporter):
-        self.heal_key = 'f1'
-        self.hp_position = (235, 79)
-        self.missing_hp_color = (214, 222, 222)
-        self.heal_multiples = 3
+        self.heal_key = constants.heal_key
+        self.hp_position = constants.hp_position
+        self.missing_hp_color = constants.missing_hp_color
+        self.heal_multiples = constants.heal_multiples
         self.heal_delay = 0.5
-        self.critical_hp_position =  (138, 80)
-        self.critical_missing_hp_color =  (230, 230, 238)
+        self.critical_hp_position = constants.critical_hp_position
+        self.critical_missing_hp_color = constants.critical_missing_hp_color
         self.teleporter = teleporter
     
     def do_heal(self):
