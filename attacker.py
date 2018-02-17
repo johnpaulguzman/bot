@@ -9,7 +9,7 @@ class Detector:  # reminder to turn on every snap setting in the in-game Graphic
         self.cursor_color_threshold = 30
         self.cursor_border_x = 1
         self.cursor_border_y = 1
-        self.cursor_border_y_end = 3
+        self.cursor_border_y_end = 4
 
     def is_clickable(self, position):
         for j in range(self.cursor_border_y, self.cursor_border_y_end + 1):
