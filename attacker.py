@@ -6,7 +6,7 @@ import time
 import constants
 
 
-class Detector:  # reminder to turn on every snap setting in the in-game Graphics Option
+class Detector:
     def __init__(self): 
         self.cursor_color_threshold = 30
         self.cursor_border_x = 1
@@ -51,7 +51,7 @@ class Attacker:
 
     def option_select_action(self, pixel):
         pyautogui.click(pixel)
-        for i in range(2):
+        for _ in range(2):
             pyautogui.press(self.skill_key)
             time.sleep(self.skill_delay)
             pyautogui.click(pixel)
@@ -63,8 +63,8 @@ class Attacker:
     def move_mouse(self):
         if self.teleporter.teleporting_status: return
         for pixel in self.pixels_to_check:
-            for i in range(self.cursor_stabilize_iterations): pyautogui.moveTo(self.view_refresh_px)
-            for i in range(self.cursor_stabilize_iterations): pyautogui.moveTo(pixel)
+            for _ in range(self.cursor_stabilize_iterations): pyautogui.moveTo(self.view_refresh_px)
+            for _ in range(self.cursor_stabilize_iterations): pyautogui.moveTo(pixel)
             if self.detector.is_clickable(pixel):
                 self.option_select_action(pixel)
                 return
@@ -73,4 +73,5 @@ class Attacker:
 
     def run(self):
         while True: 
+            #continue
             self.move_mouse()

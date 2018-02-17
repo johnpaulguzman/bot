@@ -10,7 +10,7 @@ class Healer:
         self.hp_position = constants.hp_position
         self.missing_hp_color = constants.missing_hp_color
         self.heal_multiples = constants.heal_multiples
-        self.heal_delay = 0.5
+        self.heal_delay = 0.1
         self.critical_hp_position = constants.critical_hp_position
         self.critical_missing_hp_color = constants.critical_missing_hp_color
         self.teleporter = teleporter
@@ -23,6 +23,7 @@ class Healer:
     def run(self):
         while True:
             if pyautogui.pixel(*self.critical_hp_position) == self.critical_missing_hp_color:
+                #print("Attempting to run...")
                 self.teleporter.do_teleport()
             if pyautogui.pixel(*self.hp_position) == self.missing_hp_color:
                 self.do_heal()
