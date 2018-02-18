@@ -11,13 +11,16 @@ class Teleporter(threading.Thread):
         self.teleport_key = constants.teleport_key
         self.enter_key = 'enter'
         self.teleport_time = constants.teleport_time
-        self.teleport_enter_delay = 1
+        self.clicks_before_enter = 3
+        self.clicks_before_enter_delay = 0.25
         self.teleporting_status = False
         self.teleporting_status_time = 1
     
     def do_teleport(self):
         pyautogui.press(self.teleport_key)
-        time.sleep(self.teleport_enter_delay)
+        for _ in range(self.clicks_before_enter):
+            pyautogui.click()
+            time.sleep(self.clicks_before_enter_delay)
         pyautogui.press(self.enter_key)
         self.teleporting_status = True
         time.sleep(self.teleporting_status_time)
