@@ -72,6 +72,8 @@ class Attacker:
         self.do_random_walk()
 
     def run(self):
-        while True: 
-            #continue
-            self.move_mouse()
+        while True:
+            try:
+                self.move_mouse()
+            except Exception as e:
+                print(e)
