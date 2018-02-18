@@ -25,7 +25,7 @@ class Healer(threading.Thread):
     def run(self):
         while True:
             if pyautogui.pixel(*self.critical_hp_position) == self.critical_missing_hp_color:
-                print("Attempting to run...")
-                #self.teleporter.do_teleport()  ###### TODO: UNCOMMENT LATER
+                #print("Attempting to run...")
+                self.teleporter.do_teleport()
             if pyautogui.pixel(*self.hp_position) == self.missing_hp_color:
                 self.do_heal()
