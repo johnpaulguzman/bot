@@ -27,3 +27,4 @@ class Teleporter(threading.Thread):
         while True:
             self.do_teleport()
             time.sleep(self.teleport_time)
+            time.sleep(constants.global_refresh_time)

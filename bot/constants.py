@@ -10,6 +10,7 @@ r""" == REMINDERS ==
 4.c) To stop the program, Alt-Tab to cmd and input: Ctrl+C 
 """
 
+global_refresh_time = 1/100
 view_refresh_px = (83, 29)  # get pixel position of a Basic Information button
 view_center_px = (716, 382)  # get pixel position of the center of the cell containing player's feet sprite
 

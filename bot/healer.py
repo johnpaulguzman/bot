@@ -29,3 +29,4 @@ class Healer(threading.Thread):
                 self.teleporter.do_teleport()
             if pyautogui.pixel(*self.hp_position) == self.missing_hp_color:
                 self.do_heal()
+            time.sleep(constants.global_refresh_time)

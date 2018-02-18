@@ -3,6 +3,7 @@ import sys
 import time
 import threading
 
+import constants
 from teleporter import Teleporter
 from healer import Healer
 from attacker import Attacker
@@ -20,19 +21,19 @@ threads = [
 #    buffer,
 ]
 
-pympler_prints = 0
-restart_timer = 180
+i_am_going_to_hell_for_this_sec = 180
+import os 
+import psutil 
+pid = os.getpid() 
+py = psutil.Process(pid)
+memoryUse = py.memory_info()[0]/2.**30 # memory use in GB...I think 
+print('memory use:', memoryUse) 
 
 def execute_memory_leak_hack_in(secs):
     time.sleep(secs)
     os.execl(sys.executable, sys.executable, *sys.argv) 
 
-from pympler import summary, muppy
-
 if __name__ == '__main__':
     for thread in threads: thread.start()
-    for i in range(pympler_prints):
-        all_objects = muppy.get_objects()
-        sum1 = summary.summarize(all_objects)
-        summary.print_(sum1)
-    execute_memory_leak_hack_in(restart_timer)
+    execute_memory_leak_hack_in(i_am_going_to_hell_for_this_sec)
+        

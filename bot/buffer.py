@@ -18,3 +18,4 @@ class Buffer(threading.Thread):
     def run(self):
         while True:
             self.do_speed_pots()
+            time.sleep(constants.global_refresh_time)

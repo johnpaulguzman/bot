@@ -75,7 +75,5 @@ class Attacker(threading.Thread):
 
     def run(self):
         while True:
-            try:
-                self.move_mouse()
-            except Exception as e:
-                print(e)
+            self.move_mouse()
+            time.sleep(constants.global_refresh_time)
