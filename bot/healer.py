@@ -1,11 +1,13 @@
 import pyautogui
+import threading
 import time
 
 import constants
 
 
-class Healer:
+class Healer(threading.Thread):
     def __init__(self, teleporter):
+        super().__init__(daemon=True)
         self.heal_key = constants.heal_key
         self.hp_position = constants.hp_position
         self.missing_hp_color = constants.missing_hp_color

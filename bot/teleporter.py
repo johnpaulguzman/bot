@@ -1,11 +1,13 @@
 import pyautogui
+import threading
 import time
 
 import constants
 
 
-class Teleporter:
+class Teleporter(threading.Thread):
     def __init__(self):
+        super().__init__(daemon=True)
         self.teleport_key = constants.teleport_key
         self.enter_key = 'enter'
         self.teleport_time = constants.teleport_time

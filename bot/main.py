@@ -8,20 +8,18 @@ from healer import Healer
 #from buffer import Buffer
 
 #teleporter = Teleporter()
-#thread_teleport = threading.Thread(name='thread-teleport', target=teleporter.run, daemon=True)
-
 healer = Healer(None)
-thread_heal = threading.Thread(name='thread-heal', target=healer.run, daemon=True)
-
 #attacker = Attacker(teleporter)
-#thread_attack = threading.Thread(name='thread-attack', target=attacker.run, daemon=True)
-
 #buffer = Buffer()
-#thread_buff = threading.Thread(name='thread-buff', target=buffer.run, daemon=True)
 
 
-threads = [thread_heal]
-# MEMORY LEAKING
+threads = [
+#    teleporter,
+    healer,
+#    attacker,
+#    buffer,
+]
+
 
 from pympler import summary, muppy
 

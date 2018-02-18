@@ -1,6 +1,7 @@
 import math
 import pyautogui
 import random
+import threading
 import time
 
 import constants
@@ -22,8 +23,9 @@ class Detector:
         return False
 
 
-class Attacker:
+class Attacker(threading.Thread):
     def __init__(self, teleporter):
+        super().__init__(daemon=True)
         self.skill_key = constants.skill_key
         self.skill_delay = 0.005
         self.view_refresh_px = constants.view_refresh_px

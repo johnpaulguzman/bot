@@ -1,11 +1,13 @@
 import pyautogui
+import threading
 import time
 
 import constants
 
 
-class Buffer:
+class Buffer(threading.Thread):
     def __init__(self):
+        super().__init__(daemon=True)
         self.speed_pots_key = constants.speed_pots_key
         self.speed_pots_delay = 30 * 60
     
