@@ -12,7 +12,7 @@ class Detector:
         self.cursor_color_threshold = 30
         self.cursor_border_x = 1
         self.cursor_border_y = 1
-        self.cursor_border_y_end = 4
+        self.cursor_border_y_end = 3
 
     def is_clickable(self, position):
         for j in range(self.cursor_border_y, self.cursor_border_y_end + 1):
@@ -61,6 +61,9 @@ class Attacker(threading.Thread):
     def do_random_walk(self):
         random_walk_pixel = random.choice(self.random_walk_pixels)
         self.option_select_action(random_walk_pixel)
+        for _ in range(constants.scroll_up_multiples): 
+            pyautogui.scroll(1)
+            time.sleep(constants.global_refresh_time)
     
     def move_mouse(self):
         if self.teleporter.teleporting_status: return

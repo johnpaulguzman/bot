@@ -25,12 +25,12 @@ threads = [
 #pid = os.getpid() 
 #py = psutil.Process(pid)
 #memoryUse = py.memory_info()[0]/2.**30 # memory use in GB...I think 
-#print('memory use:', memoryUse) 
+#print('memory use:', memoryUse)
 
 def execute_memory_leak_hack_in(secs):
     print("Restarting in {} seconds".format(secs))
     time.sleep(secs)
-    print("Restarting...")
+    print("Executing a restart...")
     os.execl(sys.executable, sys.executable, *sys.argv) 
 
 if __name__ == '__main__':

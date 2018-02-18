@@ -10,7 +10,7 @@ r""" == REMINDERS ==
 4.c) To stop the program, Alt-Tab to cmd and input: Ctrl+C 
 """
 
-global_refresh_time = 1/100
+global_refresh_time = 0.01
 view_refresh_px = (83, 29)  # get pixel position of a Basic Information button
 view_center_px = (716, 382)  # get pixel position of the center of the cell containing player's feet sprite
 
@@ -19,6 +19,7 @@ teleport_key = 'f9'  # teleport key
 heal_key = 'f1'  # consumable healing item key
 heal_multiples = 3  # number of consumes per heal trigger
 teleport_time = 120 # force teleport every specified seconds interval
+scroll_up_multiples = 5 # number of scroll ups inputs after each random walk
 
 hp_position = (235, 79)  # pixel position of 75% of the HP bar in the Ctrl+V window
 missing_hp_color = (214, 222, 222)  # (triggers heal) pixel color of hp_position when getting damaged
