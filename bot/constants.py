@@ -2,7 +2,7 @@ r""" == REMINDERS ==
 1.) Set windowed mode resolution to (1280, 720).
 2.) Open the in-game options > Graphic Options:
 2.a) Check Snap for attack, skill, item
-2.b) Uncheck NoCtrl
+2.b) /nc = off, /ns = off, /exall, /nt = on, /camera = on
 3.) Center the screen (double right-click) and zoom out (mouse scroll-up) as far as possible
 4.) Run the program through the command prompt (Win+r > cmd)
 4.a) Run: cd bot

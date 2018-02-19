@@ -8,18 +8,36 @@ import constants
 
 
 class Detector:
-    def __init__(self): 
-        self.cursor_color_threshold = 30
+    def __init__(self, teleporter): 
+        self.black_color_threshold = 30
         self.cursor_border_x = 1
         self.cursor_border_y = 1
         self.cursor_border_y_end = 4
+        self.door_border_x = 7
+        self.door_border_y = 0
+        self.door_border_y_end = 3
+        self.teleporter = teleporter
+        
+    def is_pixel_white(self, pixel):
+        for color in pixel:
+            if color > self.black_color_threshold:
+                return True
+        return False
+
+    def is_warp_portal(self, position):
+        for j in range(self.door_border_y, self.door_border_y_end + 1):
+            check_pixel = pyautogui.pixel(position[0] + self.door_border_x, position[1] + j)
+            if self.is_pixel_white(check_pixel):  # dark right door hinge was not detected
+                return False
+        self.teleporter.do_teleport()  # run from warp portals
+        return True
 
     def is_clickable(self, position):
         for j in range(self.cursor_border_y, self.cursor_border_y_end + 1):
             check_pixel = pyautogui.pixel(position[0] + self.cursor_border_x, position[1] + j)
-            for color in check_pixel:
-                if color > self.cursor_color_threshold:
-                    return True
+            if self.is_pixel_white(check_pixel):  # dark left idle cursor was not detected 
+                return not self.is_warp_portal(position)  # click if it is not pointing at a warp portal
+                # return True - old behaviour
         return False
 
 
@@ -47,8 +65,8 @@ class Attacker(threading.Thread):
             (self.view_center_px[0] + self.vision_range * self.cell_size[0], self.view_center_px[1]),
             (self.view_center_px[0] - self.vision_range * self.cell_size[0], self.view_center_px[1]),
         ]
-        self.detector = Detector()
         self.teleporter = teleporter
+        self.detector = Detector(teleporter)
         pyautogui.click(self.view_center_px)
 
     def option_select_action(self, pixel):
