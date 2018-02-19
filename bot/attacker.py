@@ -12,7 +12,7 @@ class Detector:
         self.black_color_threshold = 30
         self.cursor_border_x = 1
         self.cursor_border_y = 1
-        self.cursor_border_y_end = 4
+        self.cursor_border_y_end = 5
         self.door_border_x = 7
         self.door_border_y = 0
         self.door_border_y_end = 3
@@ -29,7 +29,7 @@ class Detector:
             check_pixel = pyautogui.pixel(position[0] + self.door_border_x, position[1] + j)
             if self.is_pixel_white(check_pixel):  # dark right door hinge was not detected
                 return False
-        self.teleporter.do_teleport()  # run from warp portals
+        self.teleporter.do_teleport(do_clicks=False)  # run from warp portals
         return True
 
     def is_clickable(self, position):
