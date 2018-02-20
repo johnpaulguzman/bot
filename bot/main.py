@@ -8,17 +8,20 @@ from teleporter import Teleporter
 from healer import Healer
 from attacker import Attacker
 from buffer import Buffer
+from notifier import Notifier
 
 teleporter = Teleporter()
 healer = Healer(teleporter)
 attacker = Attacker(teleporter)
 buffer = Buffer()
+notifier = Notifier()
 
 threads = [
     teleporter,
     healer,
     attacker,
 #    buffer,
+    notifier,
 ]
 
 #import psutil 

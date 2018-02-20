@@ -1,9 +1,13 @@
 import pyautogui
 import threading
 import time
+import sqlite3
 
 import constants
 
+class BuffUnit:
+    def __init__(self, name, interval, key):
+        pass  # TODO sqlite time logging
 
 class Buffer(threading.Thread):
     def __init__(self):

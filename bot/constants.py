@@ -26,4 +26,8 @@ missing_hp_color = (230, 230, 238)  # (triggers heal) pixel color of hp_position
 critical_hp_position = (170, 80)  # pixel position of 25% of the HP bar in the Ctrl+V window
 critical_missing_hp_color = (230, 230, 238)  # (triggers teleport away) pixel color of critical_hp_position when getting damaged
 
+dead_hp_position = (114, 80)
+dead_hp_color = (230, 230, 238)
+dead_check_interval = 1
+
 speed_pots_key = 'f8'
