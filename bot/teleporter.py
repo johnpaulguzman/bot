@@ -13,7 +13,7 @@ class Teleporter(threading.Thread):
         self.teleport_time = constants.teleport_time
         self.clicks_before_enter = 3
         self.clicks_before_enter_delay = 0.25
-        self.enter_times = 2
+        self.enter_times = 3
         self.teleporting_status = False
         self.teleporting_status_time = 1
     

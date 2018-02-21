@@ -28,6 +28,10 @@ critical_missing_hp_color = (230, 230, 238)  # (triggers teleport away) pixel co
 
 dead_hp_position = (114, 80)
 dead_hp_color = (230, 230, 238)
-dead_check_interval = 1
+dead_check_interval = 20
+arm_alarm = True
+
+open_info_position = (288, 69)
+open_info_color = (123, 156, 222)
 
 speed_pots_key = 'f8'
