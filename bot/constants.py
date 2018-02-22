@@ -10,12 +10,24 @@ r""" == REMINDERS ==
 4.c) To stop the program, Alt-Tab to cmd and input: Ctrl+C 
 """
 
+import pyautogui
+def overrider_click(*args):
+    pyautogui.mouseDown(*args)
+    pyautogui.mouseUp(*args)
+    
+def overrider_press(*args):
+    pyautogui.keyDown(*args)
+    pyautogui.keyUp(*args)
+    
+pyautogui.new_click = overrider_click
+pyautogui.new_press = overrider_press
+
 from enum import Enum
 class Servers(Enum):
     TALONRO = 1
     NOVARO = 2
 
-server_choice = Servers.TALONRO
+server_choice = Servers.NOVARO
 
 class Constants:
     if server_choice == Servers.TALONRO:

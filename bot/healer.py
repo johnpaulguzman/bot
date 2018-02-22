@@ -19,7 +19,7 @@ class Healer(threading.Thread):
     
     def do_heal(self):
         for i in range(self.heal_multiples):
-            pyautogui.press(self.heal_key)
+            pyautogui.new_press(self.heal_key)
             time.sleep(self.heal_delay)
 
     def run(self):

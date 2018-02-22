@@ -17,7 +17,7 @@ class Buffer(threading.Thread):
     
     def do_speed_pots(self):
         time.sleep(self.speed_pots_delay)
-        pyautogui.press(self.speed_pots_key)
+        pyautogui.new_press(self.speed_pots_key)
 
     def run(self):
         while True:

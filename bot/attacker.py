@@ -65,14 +65,15 @@ class Attacker(threading.Thread):
         ]
         self.teleporter = teleporter
         self.detector = Detector(teleporter)
-        pyautogui.click(self.view_center_px)
+        pyautogui.new_click(self.view_center_px)
 
     def option_select_action(self, pixel):
-        pyautogui.click(pixel)
+        pyautogui.new_click(pixel)
+        time.sleep(Constants.global_refresh_time)
         for _ in range(2):
-            pyautogui.press(self.skill_key)
+            pyautogui.new_press(self.skill_key)
             time.sleep(self.skill_delay)
-            pyautogui.click(pixel)
+            pyautogui.new_click(pixel)
 
     def do_random_walk(self):
         random_walk_pixel = random.choice(self.random_walk_pixels)
