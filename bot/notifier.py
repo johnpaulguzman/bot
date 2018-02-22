@@ -2,18 +2,18 @@ import pyautogui
 import threading
 import time
 
-import constants
+from constants import Constants
 
 
 class Notifier(threading.Thread):
     def __init__(self):
         super().__init__(daemon=True)
-        self.dead_hp_position = constants.dead_hp_position
-        self.dead_hp_color = constants.dead_hp_color
-        self.dead_check_interval = constants.dead_check_interval
-        self.arm_alarm = constants.arm_alarm
-        self.open_info_position = constants.open_info_position
-        self.open_info_color = constants.open_info_color
+        self.dead_hp_position = Constants.dead_hp_position
+        self.dead_hp_color = Constants.dead_hp_color
+        self.dead_check_interval = Constants.dead_check_interval
+        self.arm_alarm = Constants.arm_alarm
+        self.open_info_position = Constants.open_info_position
+        self.open_info_color = Constants.open_info_color
         self.check_open_info()
 
     def check_open_info(self):

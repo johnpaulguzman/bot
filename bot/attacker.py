@@ -4,7 +4,7 @@ import random
 import threading
 import time
 
-import constants
+from constants import Constants
 
 
 class Detector:
@@ -44,14 +44,12 @@ class Detector:
 class Attacker(threading.Thread):
     def __init__(self, teleporter):
         super().__init__(daemon=True)
-        self.skill_key = constants.skill_key
+        self.skill_key = Constants.skill_key
         self.skill_delay = 0.005
-        self.view_refresh_px = constants.view_refresh_px
-        self.view_center_px = constants.view_center_px
-        self.cell_size = (12, 12)  # px/cell length
+        self.view_center_px = Constants.view_center_px
+        self.cell_size = Constants.cell_size
         self.vision_range = 12
         self.snap_range = 3
-        self.cursor_stabilize_iterations = 2
         self.partitions = math.ceil(self.vision_range / (self.snap_range * 2))
         self.ranges_to_check = [self.snap_range * 2 * p for p in range(-self.partitions + 1, self.partitions)]
         self.cells_to_check = [(x, y) for x in self.ranges_to_check for y in self.ranges_to_check]
@@ -79,17 +77,16 @@ class Attacker(threading.Thread):
     def do_random_walk(self):
         random_walk_pixel = random.choice(self.random_walk_pixels)
         self.option_select_action(random_walk_pixel)
-        for _ in range(constants.scroll_up_multiples): 
+        for _ in range(Constants.scroll_up_multiples): 
             pyautogui.scroll(1)
-            time.sleep(constants.global_refresh_time)
+            time.sleep(Constants.global_refresh_time)
     
     def move_mouse(self):
         if self.teleporter.teleporting_status: return
         for pixel in self.pixels_to_check:
-            for _ in range(self.cursor_stabilize_iterations):
-                pyautogui.moveTo(self.view_refresh_px)
-            for _ in range(self.cursor_stabilize_iterations):
-                pyautogui.moveTo(pixel)
+            pyautogui.mouseDown(button='right')
+            pyautogui.mouseUp(button='right')
+            pyautogui.moveTo(pixel)
             if self.detector.is_clickable(pixel):
                 self.option_select_action(pixel)
                 return
@@ -99,4 +96,4 @@ class Attacker(threading.Thread):
     def run(self):
         while True:
             self.move_mouse()
-            time.sleep(constants.global_refresh_time)
+            time.sleep(Constants.global_refresh_time)

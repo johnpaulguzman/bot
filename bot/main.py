@@ -3,7 +3,7 @@ import sys
 import time
 import threading
 
-import constants
+from constants import Constants
 from teleporter import Teleporter
 from healer import Healer
 from attacker import Attacker
@@ -38,5 +38,5 @@ def execute_memory_leak_hack_in(secs):
 
 if __name__ == '__main__':
     for thread in threads: thread.start()
-    execute_memory_leak_hack_in(constants.teleport_time)
+    execute_memory_leak_hack_in(Constants.teleport_time)
         
