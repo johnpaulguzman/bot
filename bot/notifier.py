@@ -20,8 +20,8 @@ class Notifier(threading.Thread):
         if pyautogui.pixel(*self.open_info_position) == self.open_info_color:
             pyautogui.keyDown('alt')
             pyautogui.keyDown('v')
-            pyautogui.keyUp('alt')
             pyautogui.keyUp('v')
+            pyautogui.keyUp('alt')
         
     def sound_alarm(self):
         while True:

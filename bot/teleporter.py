@@ -31,6 +31,6 @@ class Teleporter(threading.Thread):
 
     def run(self):
         while True:
-            self.do_teleport()
+            #########self.do_teleport()
             time.sleep(self.teleport_time)
             time.sleep(Constants.global_refresh_time)

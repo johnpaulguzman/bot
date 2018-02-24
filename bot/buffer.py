@@ -3,25 +3,24 @@ import threading
 import time
 #import sqlite3
 
-from constants import Constants
+from constants import Constants, Pixel
 
 class BuffUnit:
-    def __init__(self, key, position, color):
+    def __init__(self, key, pixel):
         self.key = key
-        self.position = position
-        self.color = color
+        self.pixel = pixel
 
 class Buffer(threading.Thread):
     def __init__(self, teleporter):
         super().__init__(daemon=True)
         self.buffs = [
-            #BuffUnit('f2', (1324, 211), (203, 254, 254)),  # endure
+            #BuffUnit(key='f2', pixel=Pixel(position=(1324, 211), color=(203, 254, 254))),  # endure
         ]
         self.teleporter = teleporter
 
     def do_buffs(self):
         for buff in self.buffs:
-            if not pyautogui.pixel(*buff.position) == buff.color:
+            if not buff.pixel.is_pixel_detected():
                 pyautogui.new_press(buff.key)
 
     def run(self):

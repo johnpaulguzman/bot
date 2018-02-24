@@ -29,43 +29,51 @@ class Servers(Enum):
 
 server_choice = Servers.TALONRO
 
-class Pixel:  # TODO New branch
-    def __init__(self, position, color):
+class Pixel:
+    black_color_threshold = 30
+#
+    def __init__(self, position=None, color=None):
         self.position = position
         self.color = color
-    
-    def is_detected(self):
+#
+    def translate(self, dx=0, dy=0):
+        translated_position = (self.position[0] + dx, self.position[1] + dy) if self.position else None
+        return Pixel(position=translated_position, color=self.color)
+#
+    def is_pixel_detected(self):
         if self.position == None or self.color == None:
             return False
-        else:
-            return pyautogui.pixel(*self.position) == self.color
+        return pyautogui.pixel(*self.position) == self.color
+#
+    def is_pixel_white(self):
+        for primary_color in self.color:
+            if primary_color > self.black_color_threshold:
+                return True
+        return False
 
 class Constants:
     if server_choice == Servers.TALONRO:
         global_refresh_time = 0.02
-        heal_multiples = 4  # number of consumes per heal trigger
-        teleport_time = 120 # force teleport every specified seconds interval
-        scroll_up_multiples = 1 # number of scroll ups inputs after each random walk
-        dead_check_interval = 30
-        arm_alarm = True
-        ks_check_interval = 3
         cell_size = (12, 12)
-
-        view_center_px = (716, 382)  # get pixel position of the center of the cell containing player's feet sprite
-        hp_position = (225, 80)  # pixel position of 75% of the HP bar in the Ctrl+V window
-        missing_hp_color = (230, 230, 238)  # (triggers heal) pixel color of hp_position when getting damaged
-        critical_hp_position = (170, 80)  # pixel position of 25% of the HP bar in the Ctrl+V window
-        critical_missing_hp_color = (230, 230, 238)  # (triggers teleport away) pixel color of critical_hp_position when getting damaged
-        dead_hp_position = (114, 80)
-        dead_hp_color = (230, 230, 238) 
-        open_info_position = (288, 69)
-        open_info_color = (123, 156, 222)
-        ks_warn_position = (708, 64)
-        ks_warn_color = (181, 255, 181)
-
+        
         skill_key = 'f3'  # bowling bash key
         teleport_key = 'f9'  # teleport key
         heal_key = 'f1'  # consumable healing item key
+        
+        heal_multiples = 4   # number of consumes per heal trigger
+        teleport_time = 120  # force teleport every specified seconds interval
+        scroll_up_multiples = 1  # number of scroll ups inputs after each random walk
+        dead_check_interval = 30
+        ks_check_interval = 3
+        arm_alarm = True
+
+        view_center_pixel = Pixel(position=(716, 382))  # get pixel position of the center of the cell containing player's feet sprite
+        heal_trigger_pixel = Pixel(position=(225, 80), color=(230, 230, 238))
+        escape_trigger_pixel = Pixel(position=(170, 80), color=(230, 230, 238))
+        death_alarm_pixel = Pixel(position=(114, 80), color=(230, 230, 238))
+        info_open_pixel = Pixel(position=(288, 69), color=(123, 156, 222))
+        ks_warn_pixel = Pixel(position=(708, 64), color=(181, 255, 181))
+
 
     elif server_choice == Servers.NOVARO:
         global_refresh_time = 0.02
