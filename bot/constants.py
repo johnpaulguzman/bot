@@ -11,13 +11,13 @@ r""" == REMINDERS ==
 """
 
 import pyautogui
-def overrider_click(*args):
-    pyautogui.mouseDown(*args)
-    pyautogui.mouseUp(*args)
+def overrider_click(*args, **kwargs):
+    pyautogui.mouseDown(*args, **kwargs)
+    pyautogui.mouseUp(*args, **kwargs)
     
-def overrider_press(*args):
-    pyautogui.keyDown(*args)
-    pyautogui.keyUp(*args)
+def overrider_press(*args, **kwargs):
+    pyautogui.keyDown(*args, **kwargs)
+    pyautogui.keyUp(*args, **kwargs)
     
 pyautogui.new_click = overrider_click
 pyautogui.new_press = overrider_press
@@ -27,16 +27,28 @@ class Servers(Enum):
     TALONRO = 1
     NOVARO = 2
 
-server_choice = Servers.NOVARO
+server_choice = Servers.TALONRO
+
+class Pixel:  # TODO New branch
+    def __init__(self, position, color):
+        self.position = position
+        self.color = color
+    
+    def is_detected(self):
+        if self.position == None or self.color == None:
+            return False
+        else:
+            return pyautogui.pixel(*self.position) == self.color
 
 class Constants:
     if server_choice == Servers.TALONRO:
-        global_refresh_time = 0.01
+        global_refresh_time = 0.02
         heal_multiples = 4  # number of consumes per heal trigger
         teleport_time = 120 # force teleport every specified seconds interval
         scroll_up_multiples = 1 # number of scroll ups inputs after each random walk
-        dead_check_interval = 20
+        dead_check_interval = 30
         arm_alarm = True
+        ks_check_interval = 3
         cell_size = (12, 12)
 
         view_center_px = (716, 382)  # get pixel position of the center of the cell containing player's feet sprite
@@ -48,23 +60,25 @@ class Constants:
         dead_hp_color = (230, 230, 238) 
         open_info_position = (288, 69)
         open_info_color = (123, 156, 222)
+        ks_warn_position = (708, 64)
+        ks_warn_color = (181, 255, 181)
 
-        speed_pots_key = 'f8'
         skill_key = 'f3'  # bowling bash key
         teleport_key = 'f9'  # teleport key
         heal_key = 'f1'  # consumable healing item key
 
     elif server_choice == Servers.NOVARO:
-        global_refresh_time = 0.01
-        heal_multiples = 4  
-        teleport_time = 120 
-        scroll_up_multiples = 1 
-        dead_check_interval = 20
+        global_refresh_time = 0.02
+        heal_multiples = 4  # number of consumes per heal trigger
+        teleport_time = 120 # force teleport every specified seconds interval
+        scroll_up_multiples = 1 # number of scroll ups inputs after each random walk
+        dead_check_interval = 30
         arm_alarm = True
+        ks_check_interval = 3
         cell_size = (12, 12)
 
         view_center_px = (718, 380)
-        hp_position = (219, 80)
+        hp_position = (179, 80)
         missing_hp_color = (230, 230, 238)
         critical_hp_position = (146, 80)
         critical_missing_hp_color = (230, 230, 238)
@@ -72,8 +86,9 @@ class Constants:
         dead_hp_color = (230, 230, 238)
         open_info_position = (182, 83)
         open_info_color = (173, 197, 238)
+        ks_warn_position = (708, 64)  # NONE
+        ks_warn_color = (181, 255, 181)  # NONE
 
-        speed_pots_key = 'f8'
-        skill_key = 'f3'  
-        teleport_key = 'f9'  
-        heal_key = 'f1'  
+        skill_key = 'f3'  # bowling bash key
+        teleport_key = 'f9'  # teleport key
+        heal_key = 'f1'  # consumable healing item key 

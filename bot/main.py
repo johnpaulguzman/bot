@@ -9,19 +9,22 @@ from healer import Healer
 from attacker import Attacker
 from buffer import Buffer
 from notifier import Notifier
+from kswarn import KSWarn
 
 teleporter = Teleporter()
 healer = Healer(teleporter)
 attacker = Attacker(teleporter)
-buffer = Buffer()
+buffer = Buffer(teleporter)
 notifier = Notifier()
+kswarn = KSWarn(teleporter)
 
 threads = [
     teleporter,
     healer,
     attacker,
-#    buffer,
+    buffer,
     notifier,
+    kswarn,
 ]
 
 #import psutil 
