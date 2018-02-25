@@ -10,7 +10,15 @@ r""" == REMINDERS ==
 4.c) To stop the program, Alt-Tab to cmd and input: Ctrl+C 
 """
 
+from positioner import Positioner
+
+from enum import Enum
 import pyautogui
+
+class Servers(Enum):
+    TALONRO = 1
+    NOVARO = 2
+
 def overrider_click(*args, **kwargs):
     pyautogui.mouseDown(*args, **kwargs)
     pyautogui.mouseUp(*args, **kwargs)
@@ -22,10 +30,6 @@ def overrider_press(*args, **kwargs):
 pyautogui.new_click = overrider_click
 pyautogui.new_press = overrider_press
 
-from enum import Enum
-class Servers(Enum):
-    TALONRO = 1
-    NOVARO = 2
 
 server_choice = Servers.TALONRO
 
@@ -41,6 +45,9 @@ class Pixel:  # TODO New branch
             return pyautogui.pixel(*self.position) == self.color
 
 class Constants:
+    RO_window_position = (0, 0)  # do as coordinate and "+" this to the coordinates
+    positioner = Positioner(RO_window_position)
+
     if server_choice == Servers.TALONRO:
         global_refresh_time = 0.02
         heal_multiples = 4  # number of consumes per heal trigger
@@ -51,16 +58,16 @@ class Constants:
         ks_check_interval = 3
         cell_size = (12, 12)
 
-        view_center_px = (716, 382)  # get pixel position of the center of the cell containing player's feet sprite
-        hp_position = (225, 80)  # pixel position of 75% of the HP bar in the Ctrl+V window
+        view_center_px = (634, 382)  # get pixel position of the center of the cell containing player's feet sprite
+        hp_position = (150, 80)  # pixel position of 75% of the HP bar in the Ctrl+V window
         missing_hp_color = (230, 230, 238)  # (triggers heal) pixel color of hp_position when getting damaged
-        critical_hp_position = (170, 80)  # pixel position of 25% of the HP bar in the Ctrl+V window
+        critical_hp_position = (107, 80)  # pixel position of 25% of the HP bar in the Ctrl+V window
         critical_missing_hp_color = (230, 230, 238)  # (triggers teleport away) pixel color of critical_hp_position when getting damaged
-        dead_hp_position = (114, 80)
-        dead_hp_color = (230, 230, 238) 
-        open_info_position = (288, 69)
+        dead_hp_position = (41, 80)
+        dead_hp_color = (230, 230, 238)
+        open_info_position = (216, 64)
         open_info_color = (123, 156, 222)
-        ks_warn_position = (708, 64)
+        ks_warn_position = (634, 64)
         ks_warn_color = (181, 255, 181)
 
         skill_key = 'f3'  # bowling bash key
