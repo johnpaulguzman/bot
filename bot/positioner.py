@@ -7,6 +7,7 @@ class Positioner:
         self.window_position = window_position
         self.window_hwnd = win32gui.FindWindow(None, self.window_name)
         self.validate_window()
+        win32gui.SetForegroundWindow(self.window_hwnd)
         win32gui.MoveWindow(self.window_hwnd, *self.window_position, *self.window_size, 1)
     
     def validate_window(self):

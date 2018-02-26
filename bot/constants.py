@@ -58,7 +58,7 @@ class Constants:
         ks_check_interval = 3
         cell_size = (12, 12)
 
-        view_center_px = (634, 382)  # get pixel position of the center of the cell containing player's feet sprite
+        view_center_px = (positioner.window_size[0] // 2, positioner.window_size[1] // 2)  # get pixel position of the center of the cell containing player's feet sprite
         hp_position = (150, 80)  # pixel position of 75% of the HP bar in the Ctrl+V window
         missing_hp_color = (230, 230, 238)  # (triggers heal) pixel color of hp_position when getting damaged
         critical_hp_position = (107, 80)  # pixel position of 25% of the HP bar in the Ctrl+V window
