@@ -54,7 +54,8 @@ class Constants:
         teleport_time = 120 # force teleport every specified seconds interval
         scroll_up_multiples = 1 # number of scroll ups inputs after each random walk
         dead_check_interval = 30
-        arm_alarm = True
+        arm_dead_alarm = True
+        arm_map_alarm = True
         ks_check_interval = 3
         cell_size = (12, 12)
 
@@ -65,11 +66,13 @@ class Constants:
         critical_missing_hp_color = (230, 230, 238)  # (triggers teleport away) pixel color of critical_hp_position when getting damaged
         dead_hp_position = (41, 80)
         dead_hp_color = (230, 230, 238)
+        map_warn_position = (1188, 157)  # pick a dark pixel in the solid mode (Ctrl+Tab) minimap that distinguishes your preferred map
+        map_warn_color = (0, 0, 0)
         open_info_position = (216, 64)
         open_info_color = (123, 156, 222)
         ks_warn_position = (634, 64)
         ks_warn_color = (181, 255, 181)
-
+        
         skill_key = 'f3'  # bowling bash key
         teleport_key = 'f9'  # teleport key
         heal_key = 'f1'  # consumable healing item key
