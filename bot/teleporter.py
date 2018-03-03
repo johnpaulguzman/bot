@@ -11,6 +11,7 @@ class Teleporter(threading.Thread):
         self.teleport_key = Constants.teleport_key
         self.enter_key = 'enter'
         self.teleport_time = Constants.teleport_time
+        self.do_simple_teleport = Constants.do_simple_teleport
         self.clicks_before_enter = 3
         self.clicks_before_enter_delay = 0.25
         self.enter_times = 3
@@ -19,6 +20,10 @@ class Teleporter(threading.Thread):
     
     def do_teleport(self, do_clicks=True):
         pyautogui.new_press(self.teleport_key)
+        if self.do_simple_teleport:
+            time.sleep(0.5)
+            pyautogui.new_press('f4') #### wtf novaro
+            return
         for _ in range(self.clicks_before_enter):
             if do_clicks:
                 pyautogui.new_click()

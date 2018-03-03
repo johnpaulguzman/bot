@@ -16,6 +16,7 @@ class Healer(threading.Thread):
         self.critical_hp_position = Constants.critical_hp_position
         self.critical_missing_hp_color = Constants.critical_missing_hp_color
         self.teleporter = teleporter
+        self.heal_interval = Constants.heal_interval
     
     def do_heal(self):
         for i in range(self.heal_multiples):
@@ -29,4 +30,4 @@ class Healer(threading.Thread):
                 self.teleporter.do_teleport()
             if pyautogui.pixel(*self.hp_position) == self.missing_hp_color:
                 self.do_heal()
-            time.sleep(Constants.global_refresh_time)
+            time.sleep(self.heal_interval)

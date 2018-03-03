@@ -6,7 +6,7 @@ from constants import Constants
 
 
 class Notifier(threading.Thread):
-    def __init__(self):
+    def __init__(self, callback):
         super().__init__(daemon=True)
         self.dead_hp_position = Constants.dead_hp_position
         self.dead_hp_color = Constants.dead_hp_color
@@ -17,6 +17,7 @@ class Notifier(threading.Thread):
         self.open_info_color = Constants.open_info_color
         self.map_warn_position = Constants.map_warn_position
         self.map_warn_color = Constants.map_warn_color
+        self.callback = callback
         self.check_open_info()
 
     def check_open_info(self):
@@ -43,6 +44,7 @@ class Notifier(threading.Thread):
 
     def run(self):
         while True:
-            self.check_dead()
-            self.check_map()
+            #self.check_dead()
+            #self.check_map()
+            if pyautogui.pixel(514, 480) == (115, 148, 214): self.callback(1)  ###### WTF NOVARO
             time.sleep(self.dead_check_interval)
