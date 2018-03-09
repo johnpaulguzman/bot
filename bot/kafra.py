@@ -21,7 +21,7 @@ class Kafra:
         self.arrow_equip = 'f5'
         self.arrow_amount = 5000  # this better trigger overweight
         self.kafra_close_position = (1239, 498)
-        self.loading_buffer = 4
+        self.loading_buffer = 5
         self.return_key = '3'
         self.open_inventory_position = (891, 147)
         self.open_inventory_color = (255, 255, 255)
