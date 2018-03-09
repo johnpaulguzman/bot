@@ -80,7 +80,6 @@ class Attacker(threading.Thread):
         self.teleporter = teleporter
         self.detector = Detector(teleporter)
         self.callback = callback
-        pyautogui.new_click(self.view_center_px)
         self.check_dead_position = (614, 389) # center hp bar
         self.check_dead_color = (66, 66, 66)
 

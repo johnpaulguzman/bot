@@ -18,6 +18,7 @@ import pyautogui
 def new_click(*args, **kwargs):
     pyautogui.mouseDown(*args, **kwargs)
     pyautogui.mouseUp(*args, **kwargs)
+    #raise Exception("who u")
     
 def new_press(*args, **kwargs):
     pyautogui.keyDown(*args, **kwargs)
