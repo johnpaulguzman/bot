@@ -20,7 +20,7 @@ class Kafra:
         self.arrow_position = (1166, 631)
         self.arrow_unequip = 'f6'
         self.arrow_equip = 'f5'
-        self.arrow_amount = 2000
+        self.arrow_amount = 5000  # this better trigger overweight
         self.kafra_close_position = (1239, 498)
         self.loading_buffer = 4
         self.return_key = '3'
@@ -28,6 +28,8 @@ class Kafra:
         self.open_inventory_color = (255, 255, 255)
         self.open_ammo_position = (1228, 729)
         self.open_ammo_color = (247, 247, 247)
+        self.overweight_position = (57, 145)
+        self.overweight_color = (255, 0, 0)  # red font
         self.reposition_exes = ['run.exe']
     
     def open_inventory(self):
@@ -71,8 +73,10 @@ class Kafra:
         for (buff, cd) in self.buffcds:
             pyautogui.new_press(buff)
             time.sleep(cd)
-        
+
     def kafra_talk(self):
+        if pyautogui.pixel(*self.overweight_position) != self.overweight_color:
+            return  
         self.click_npc(self.kafra_position)
         self.press_npc('enter')
         self.press_npc('down')
