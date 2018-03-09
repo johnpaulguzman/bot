@@ -19,23 +19,17 @@ class Detector:
         self.teleporter = teleporter
     
     def close_dialog(self):  # TODO CONSTANTS
-        dialog_position = (204, 284)
+        dialog_position = (512, 190)
         dialog_color = (255, 255, 255)
         dialog_tries = 10
         if pyautogui.pixel(*dialog_position) == dialog_color:
             for i in range(dialog_tries):
-                pyautogui.new_press('down')
-                time.sleep(Constants.global_refresh_time)
-                pyautogui.new_press('down')
-                time.sleep(Constants.global_refresh_time)
-                pyautogui.new_press('down')
-                time.sleep(Constants.global_refresh_time)
-                pyautogui.new_press('down')
-                time.sleep(Constants.global_refresh_time)
+                for j in range(dialog_tries):
+                    pyautogui.new_press('down')
+                    time.sleep(Constants.global_refresh_time)
                 pyautogui.new_press('enter')
                 time.sleep(Constants.global_refresh_time)
             self.teleporter.do_teleport(do_clicks=False)
-
     
     def is_pixel_white(self, pixel):
         for color in pixel:
@@ -60,9 +54,9 @@ class Detector:
         return False        
 
 class Attacker(threading.Thread):
-    def __init__(self, teleporter):
+    def __init__(self, teleporter, callback):
         super().__init__(daemon=True)
-        ego_density = 6  ###
+        ego_density = 7  ###
         self.do_loot = Constants.do_loot
         self.skill_key = Constants.skill_key
         self.skill_delay = 0.005
@@ -85,7 +79,10 @@ class Attacker(threading.Thread):
         ]
         self.teleporter = teleporter
         self.detector = Detector(teleporter)
+        self.callback = callback
         pyautogui.new_click(self.view_center_px)
+        self.check_dead_position = (614, 389) # center hp bar
+        self.check_dead_color = (66, 66, 66)
 
     def option_select_action(self, pixel):
         if self.do_loot:
@@ -98,10 +95,11 @@ class Attacker(threading.Thread):
 
     def do_random_walk(self):
         random_walk_pixel = random.choice(self.random_walk_pixels)
-        self.option_select_action(random_walk_pixel)
+        pyautogui.new_click(random_walk_pixel)
+        r"""self.option_select_action(random_walk_pixel)
         for _ in range(Constants.scroll_up_multiples): 
             pyautogui.scroll(1)
-            time.sleep(Constants.global_refresh_time)
+            time.sleep(Constants.global_refresh_time)"""
     
     def move_mouse(self):
         # if self.teleporter.teleporting_status: return
@@ -111,7 +109,11 @@ class Attacker(threading.Thread):
             pyautogui.moveTo(pixel)
             if self.detector.is_clickable(pixel):
                 self.option_select_action(pixel)
-                return
+                #return
+        else:
+            self.do_random_walk()
+            if pyautogui.pixel(*self.check_dead_position) == self.check_dead_color: 
+                self.callback(1)
         if not Constants.do_simple_teleport:  ####### wtf novaro
             self.teleporter.do_teleport()
             self.do_random_walk()

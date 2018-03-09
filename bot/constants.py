@@ -22,11 +22,15 @@ def new_click(*args, **kwargs):
 def new_press(*args, **kwargs):
     pyautogui.keyDown(*args, **kwargs)
     pyautogui.keyUp(*args, **kwargs)
-    
+
+def new_hotkey(*args):
+    for key in args: pyautogui.keyDown(key)
+    for key in reversed(args): pyautogui.keyUp(key)
+
 pyautogui.new_click = new_click
 pyautogui.new_press = new_press
-pyautogui.mouseUp()
-pyautogui.mouseUp(button='right')
+pyautogui.new_hotkey = new_hotkey
+
 
 class Pixel:  # TODO New branch
     def __init__(self, position, color):
@@ -42,7 +46,7 @@ class Pixel:  # TODO New branch
 class Constants:
     RO_window_position = (0, 0)  # do as coordinate and "+" this to the coordinates
     positioner = Positioner(RO_window_position)
-    kill_time = 120
+    kill_time = 200
 
     if positioner.server == Servers.TALONRO:
         global_refresh_time = 0.02
