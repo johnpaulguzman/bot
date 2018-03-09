@@ -69,8 +69,10 @@ class Attacker(threading.Thread):
         self.cells_to_check = [(x, y) for x in self.ranges_to_check for y in self.ranges_to_check]
         self.cells_to_check.sort(key = lambda p: (p[0]**2 + p[1]**2)**0.5)
         self.pixels_to_check = [(self.view_center_px[0] + cell_x * self.cell_size[0], self.view_center_px[1] + cell_y * self.cell_size[1]) for (cell_x, cell_y) in self.cells_to_check]
-        for i in range(ego_density + 1):
-            self.pixels_to_check.insert(len(self.pixels_to_check) * i // ego_density, self.pixels_to_check[0])
+        #for i in range(ego_density + 1):
+        #    self.pixels_to_check.insert(len(self.pixels_to_check) * i // ego_density, self.pixels_to_check[0])
+        for i in range(len(self.pixels_to_check)):
+            self.pixels_to_check.insert(2*i + 1, self.pixels_to_check[0])
         self.random_walk_pixels = [
             (self.view_center_px[0], self.view_center_px[1] + self.vision_range * self.cell_size[1]),
             (self.view_center_px[0], self.view_center_px[1] - self.vision_range * self.cell_size[1]),
