@@ -8,7 +8,6 @@ from constants import Constants
 class Kafra:
     def __init__(self):
         self.buffcds = [('f7', 1) , ('f8', 4)]
-        self.stay_key = 'f4'
         self.healer_postion = (576, 327)
         self.kafra_position = (693, 292)
         self.warper_position = (794, 324)
@@ -37,8 +36,7 @@ class Kafra:
             pyautogui.new_hotkey('alt', 'e')
     
     def click_npc(self, position):
-        pyautogui.new_press(self.stay_key)
-        pyautogui.new_click(position)
+        pyautogui.new_click(position, button='right')
         time.sleep(self.server_buffer)
         
     def press_npc(self, key):
