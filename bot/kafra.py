@@ -21,7 +21,7 @@ class Kafra:
         self.arrow_equip = 'f5'
         self.arrow_amount = 5000  # this better trigger overweight
         self.kafra_close_position = (1239, 498)
-        self.loading_buffer = 5
+        self.loading_buffer = 6
         self.return_key = '3'
         self.open_inventory_position = (891, 147)
         self.open_inventory_color = (255, 255, 255)
@@ -29,6 +29,10 @@ class Kafra:
         self.open_ammo_color = (247, 247, 247)
         self.overweight_position = (57, 145)
         self.overweight_color = (255, 0, 0)  # red font
+        self.hallucinate_position = (672, 376)  # upper right hand corner of hp bar is higher when in hallucination status
+        self.hallucinate_color = (16, 25, 156)
+        self.hallucinate_healer_position = (694, 417)
+        self.store_tries = 50
         self.reposition_exes = ['run.exe']
     
     def open_inventory(self):
@@ -36,6 +40,8 @@ class Kafra:
             pyautogui.new_hotkey('alt', 'e')
     
     def click_npc(self, position):
+        pyautogui.new_click(position, button='right')
+        time.sleep(self.server_buffer)
         pyautogui.new_click(position, button='right')
         time.sleep(self.server_buffer)
         
@@ -89,9 +95,12 @@ class Kafra:
             pyautogui.new_click(tab)
             pyautogui.moveTo(self.inventory_empty_position)
             time.sleep(self.server_buffer)
-            while pyautogui.pixel(*self.inventory_empty_position) == self.inventory_empty_color:
-                pyautogui.new_click(self.inventory_empty_position, button='right')
-                time.sleep(self.server_buffer)
+            for _ in range(self.store_tries):
+                if pyautogui.pixel(*self.inventory_empty_position) == self.inventory_empty_color:
+                    pyautogui.new_click(self.inventory_empty_position, button='right')
+                    time.sleep(self.server_buffer)
+                else:
+                    break
         pyautogui.keyUp('alt')
         pyautogui.mouseDown(self.arrow_position)
         pyautogui.mouseUp(self.inventory_empty_position)
@@ -108,13 +117,17 @@ class Kafra:
         self.click_npc(self.warper_position)
         self.press_npc('enter')
         time.sleep(self.loading_buffer)
-        
+
     def healer_talk(self):
-        self.click_npc(self.healer_postion)
+        if pyautogui.pixel(*self.hallucinate_position) == self.hallucinate_color:
+            self.click_npc(self.hallucinate_healer_position)  # DANGER
+        else:
+            self.click_npc(self.healer_postion)
         time.sleep(self.server_buffer)
     
     def run(self):
         self.open_inventory()
+        self.do_recenter()
         self.do_return()
         self.do_recenter()
         self.healer_talk()
@@ -126,4 +139,6 @@ class Kafra:
 if __name__ == '__main__':
     time.sleep(1)
     r = Kafra()
-    r.run()
+    while True: 
+        print(r.check_hallucination())
+        time.sleep(0.5)
